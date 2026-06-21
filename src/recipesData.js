@@ -779,5 +779,25 @@ export const recipesData = [
     recipeImage: "/recipes/bangushroom.png",
     inputs: ["milkfish"],
     description: "Unique combination of Nether fungi and Milkfish."
+  },
+  {
+    id: "specific_reroll",
+    name: "Specific Ethnicity Reroll",
+    category: "combat_utility",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/ominous_trial_key.png",
+    recipeImage: "/recipes/specific-reroll.png",
+    inputs: [],
+    description: "Used for specific ethnicity reroll"
+  },
+  {
+    id: "reroll",
+    name: "Ethnicity Reroll",
+    category: "combat_utility",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/trial_key.png",
+    recipeImage: "/recipes/reroll.png",
+    inputs: [],
+    description: "Used for ethnicity reroll"
   }
 ];

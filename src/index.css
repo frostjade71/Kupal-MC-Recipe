@@ -227,7 +227,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 6px;
-  padding: 10px 12px 10px 38px;
+  padding: 10px 32px 10px 38px;
   font-size: 14px;
   color: #fff;
   transition: all 0.2s ease;
@@ -237,6 +237,28 @@ body {
   outline: none;
   border-color: var(--mc-accent);
   box-shadow: 0 0 0 2px var(--mc-accent-focus);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.clear-search-btn:hover {
+  color: #fff;
 }
 
 
@@ -300,7 +322,6 @@ body {
   margin-top: 8px;
   will-change: transform;
   transform: translateZ(0);
-  overscroll-behavior: contain;
 }
 
 .item-grid-card {
@@ -372,6 +393,7 @@ body {
   flex-direction: column;
   gap: 20px;
   min-width: 0;
+  scroll-margin-top: 60px;
 }
 
 
@@ -399,11 +421,13 @@ body {
   display: flex;
   align-items: center;
   overflow-x: auto;
+  overflow-y: hidden;
   width: 100%;
   margin-top: 16px;
   will-change: transform;
   transform: translateZ(0);
-  overscroll-behavior: contain;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .tree-canvas-wrapper {
@@ -418,7 +442,61 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
+  position: relative;
+  padding: 0 4px;
+}
+
+/* Horizontal line connecting from center to left */
+.tree-children-row > .tree-branch::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 0;
+  width: calc(50% - 2px);
+  height: 16px;
+  border-top: 4px solid #4a4a4a;
+}
+
+/* Horizontal line connecting from center to right and vertical line down to node */
+.tree-children-row > .tree-branch::after {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: calc(50% - 2px);
+  width: calc(50% + 2px);
+  height: 16px;
+  border-top: 4px solid #4a4a4a;
+  border-left: 4px solid #4a4a4a;
+}
+
+/* First child: no left horizontal line */
+.tree-children-row > .tree-branch:first-child::before {
+  border-top: none;
+}
+
+/* Last child: no right horizontal line */
+.tree-children-row > .tree-branch:last-child::after {
+  border-top: none;
+}
+
+/* Only child: no horizontal lines at all */
+.tree-children-row > .tree-branch:only-child::before {
+  border-top: none;
+}
+.tree-children-row > .tree-branch:only-child::after {
+  border-top: none;
+}
+
+/* Highlighted chain coloring */
+.tree-branch.active-chain > .tree-children-container::before {
+  background-color: var(--mc-accent);
+}
+.tree-branch.active-chain > .tree-children-container > .tree-children-row > .tree-branch::before,
+.tree-branch.active-chain > .tree-children-container > .tree-children-row > .tree-branch::after {
+  border-top-color: var(--mc-accent);
+}
+.tree-branch.active-chain > .tree-children-container > .tree-children-row > .tree-branch::after {
+  border-left-color: var(--mc-accent);
 }
 
 .tree-node-card {
@@ -483,28 +561,27 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  position: relative;
+  padding-top: 16px;
 }
 
-.tree-svg-lines {
-  width: 100%;
-  height: 32px;
-  min-height: 32px;
-  overflow: visible;
+.tree-children-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(50% - 2px);
+  width: 4px;
+  height: 16px;
+  background-color: #4a4a4a;
 }
-
-.svg-line {
-  stroke: #4a4a4a;
-  stroke-width: 6;
-}
-
-
 
 .tree-children-row {
   display: flex;
-  justify-content: space-around;
-  align-items: start;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
-  gap: 12px;
+  padding-top: 16px;
+  position: relative;
 }
 
 .empty-tree-state {
@@ -746,7 +823,7 @@ body {
   
   .search-input {
     font-size: 12px;
-    padding: 8px 10px 8px 34px;
+    padding: 8px 30px 8px 34px;
   }
   
   .category-pill {

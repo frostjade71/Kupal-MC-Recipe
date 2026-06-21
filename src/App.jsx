@@ -285,7 +285,7 @@ export default function App() {
     else if (isInChain) cardClass += " highlighted";
 
     return (
-      <div className="tree-branch" key={node.id}>
+      <div className={`tree-branch ${isInChain ? 'active-chain' : ''}`} key={node.id}>
         <div 
           onClick={() => handleSelectItem(node.id)}
           onMouseEnter={() => handleItemMouseEnter(node.id)}
@@ -303,33 +303,6 @@ export default function App() {
 
         {node.children.length > 0 && (
           <div className="tree-children-container">
-            <svg className="tree-svg-lines">
-              <line
-                x1="50%"
-                y1="0"
-                x2="50%"
-                y2="16"
-                className={`svg-line ${isInChain ? 'active' : ''}`}
-              />
-              <line
-                x1={`${100 / (node.children.length * 2)}%`}
-                y1="16"
-                x2={`${100 - (100 / (node.children.length * 2))}%`}
-                y2="16"
-                className={`svg-line ${isInChain ? 'active' : ''}`}
-              />
-              {node.children.map((_, idx) => (
-                <line
-                  key={idx}
-                  x1={`${(100 / node.children.length) * idx + (100 / (node.children.length * 2))}%`}
-                  y1="16"
-                  x2={`${(100 / node.children.length) * idx + (100 / (node.children.length * 2))}%`}
-                  y2="32"
-                  className={`svg-line ${isInChain ? 'active' : ''}`}
-                />
-              ))}
-            </svg>
-            
             <div className="tree-children-row">
               {node.children.map(child => renderTreeNode(child))}
             </div>
@@ -409,6 +382,17 @@ export default function App() {
               placeholder=" Search Item"
               className="search-input"
             />
+            {searchTerm && (
+              <button 
+                className="clear-search-btn"
+                onClick={() => setSearchTerm('')}
+                aria-label="Clear search"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
           </div>
 
           
