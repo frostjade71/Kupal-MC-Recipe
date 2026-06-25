@@ -20,7 +20,7 @@ const FullTreeViewer = () => {
         preferCanvas={true}
       >
         <ImageOverlay
-          url="/tree.webp"
+          url="/treev2.png"
           bounds={bounds}
         />
       </MapContainer>
@@ -72,6 +72,12 @@ const itemEthnicityMap = {
   bangushroom: "Kapampangan",
   adobo1: "Kapampangan",
   adobo3: "Kapampangan",
+  bicol_express: "Bicolano",
+  uncooked_pinangat: "Kapampangan",
+  lechon_kawali_1: "Kapampangan",
+  tocino_1: "Kapampangan",
+  lechon_1: "Kapampangan",
+  lechon_2: "Kapampangan",
 };
 
 const containerVariants = {
@@ -100,12 +106,16 @@ const itemVariants = {
   }
 };
 
-const getRootAncestor = (itemId) => {
+const getRootAncestor = (itemId, chainIndices = {}) => {
   let currentId = itemId;
+  let visited = new Set();
   while (true) {
-    const parent = recipesData.find(r => r.inputs.includes(currentId));
-    if (!parent) break;
-    currentId = parent.id;
+    if (visited.has(currentId)) break;
+    visited.add(currentId);
+    const parents = recipesData.filter(r => r.inputs.includes(currentId));
+    if (parents.length === 0) break;
+    const index = chainIndices[currentId] || 0;
+    currentId = parents[index % parents.length].id;
   }
   return currentId;
 };
@@ -121,6 +131,7 @@ const getIngredientTree = (itemId, depth = 0, maxDepth = 10) => {
 
 export default function App() {
   const [selectedId, setSelectedId] = useState('sand');
+  const [chainIndices, setChainIndices] = useState({});
   const [bgIndex, setBgIndex] = useState(0);
   const [showFullTree, setShowFullTree] = useState(false);
   const scrollRef = useRef(null);
@@ -242,9 +253,9 @@ export default function App() {
 
 
   const treeData = useMemo(() => {
-    const rootId = getRootAncestor(selectedId);
+    const rootId = getRootAncestor(selectedId, chainIndices);
     return getIngredientTree(rootId);
-  }, [selectedId]);
+  }, [selectedId, chainIndices]);
 
   const activeChainIds = useMemo(() => {
     const ids = new Set();
@@ -260,11 +271,11 @@ export default function App() {
     const addAncestors = (itemId) => {
       if (ids.has(itemId)) return;
       ids.add(itemId);
-      recipesData.forEach(r => {
-        if (r.inputs.includes(itemId)) {
-          addAncestors(r.id);
-        }
-      });
+      const parents = recipesData.filter(r => r.inputs.includes(itemId));
+      if (parents.length > 0) {
+        const index = chainIndices[itemId] || 0;
+        addAncestors(parents[index % parents.length].id);
+      }
     };
 
     const targetId = hoveredId || selectedId;
@@ -273,7 +284,7 @@ export default function App() {
       addAncestors(targetId);
     }
     return ids;
-  }, [selectedId, hoveredId]);
+  }, [selectedId, hoveredId, chainIndices]);
 
   const renderTreeNode = (node) => {
     if (!node) return null;
@@ -284,6 +295,9 @@ export default function App() {
     if (isSelected) cardClass += " selected";
     else if (isInChain) cardClass += " highlighted";
 
+    const parents = recipesData.filter(r => r.inputs.includes(node.id));
+    const hasMultipleChains = parents.length > 1;
+
     return (
       <div className={`tree-branch ${isInChain ? 'active-chain' : ''}`} key={node.id}>
         <div 
@@ -292,6 +306,22 @@ export default function App() {
           onMouseLeave={handleItemMouseLeave}
           className={cardClass}
         >
+          {hasMultipleChains && (
+            <button 
+              className="cycle-chain-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleSelectItem(node.id);
+                setChainIndices(prev => ({
+                  ...prev,
+                  [node.id]: ((prev[node.id] || 0) + 1) % parents.length
+                }));
+              }}
+              title="Change Chain"
+            >
+              ↻
+            </button>
+          )}
           <img 
             src={node.outputImage} 
             alt={node.name} 
@@ -513,6 +543,7 @@ export default function App() {
                selectedItem.recipeImage.endsWith('.webp') || 
                selectedItem.recipeImage.endsWith('.svg')) ? (
                 <img 
+                  key={selectedItem.id}
                   src={selectedItem.recipeImage} 
                   alt={`${selectedItem.name} recipe`} 
                   className="gui-image"

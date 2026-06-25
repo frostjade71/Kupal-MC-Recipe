@@ -500,6 +500,7 @@ body {
 }
 
 .tree-node-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -515,6 +516,37 @@ body {
   transition: transform 0.1s ease, background-color 0.1s ease;
   z-index: 2;
   image-rendering: pixelated;
+}
+
+.cycle-chain-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #2b2b2b;
+  color: #fff;
+  border: 2px solid #555;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.cycle-chain-btn:hover {
+  background: #444;
+  border-color: #888;
+  transform: scale(1.1);
+}
+
+.cycle-chain-btn:active {
+  transform: scale(0.95);
 }
 
 .tree-node-card:hover {

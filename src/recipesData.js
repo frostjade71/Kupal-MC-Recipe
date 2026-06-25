@@ -176,7 +176,7 @@ export const recipesData = [
     tier: 1,
     outputImage: "/recipes/output_recipe/blaze_powder.png",
     recipeImage: "/recipes/blaze_powder.png",
-    inputs: [],
+    inputs: ["blaze_rod"],
     description: "Can be used as a fuel for witchcraft potions"
   },
   {
@@ -326,7 +326,7 @@ export const recipesData = [
     tier: 2,
     outputImage: "/recipes/output_recipe/brewing_stand.png",
     recipeImage: "/recipes/brewing_stand.png",
-    inputs: [],
+    inputs: ["blaze_rod"],
     description: "Witchcraft Stand ng Visayas."
   },
   {
@@ -716,7 +716,7 @@ export const recipesData = [
     category: "custom_food",
     tier: 1,
     outputImage: "/recipes/output_recipe/Potion_of_Strength_JE3.png",
-    recipeImage: "ixpu forgot to send nudes i mean the oil recipe",
+    recipeImage: "/recipes/mantika.png",
     inputs: [],
     description: "Cooking oil used for frying and sautéing."
   },
@@ -762,12 +762,12 @@ export const recipesData = [
   },
   {
     id: "bicol_express",
-    name: "Bicol Express",
+    name: "Bicol Express Prep",
     category: "custom_food",
     tier: 3,
-    outputImage: "/recipes/output_recipe/suspicious_stew.png",
+    outputImage: "/recipes/output_recipe/rabbit_stew.png",
     recipeImage: "/recipes/bicol_express.png",
-    inputs: [],
+    inputs: ["sili"],
     description: "Spicy pork stew with coconut milk and chilies."
   },
   {
@@ -799,5 +799,145 @@ export const recipesData = [
     recipeImage: "/recipes/reroll.png",
     inputs: [],
     description: "Used for ethnicity reroll"
+  },
+  {
+    id: "cooked_bicol_express",
+    name: "Bicol Express (Finished)",
+    category: "custom_food",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/rabbit_stew.png",
+    recipeImage: "/recipes/cooked_bicol_express.png",
+    inputs: ["bicol_express"],
+    description: "Cooked Bicol Express."
+  },
+  {
+    id: "lechon_1",
+    name: "Lechon Prep 1",
+    category: "custom_food",
+    tier: 1,
+    outputImage: "/recipes/output_recipe/Piglin Head_1.21.4.png",
+    recipeImage: "/recipes/lechon1.png",
+    inputs: ["tanglad"],
+    description: "Lechon prep 1."
+  },
+  {
+    id: "lechon_2",
+    name: "Lechon Prep 2",
+    category: "custom_food",
+    tier: 2,
+    outputImage: "/recipes/output_recipe/Piglin Head_1.21.4.png",
+    recipeImage: "/recipes/lechon2.png",
+    inputs: ["lechon_1", "bawang", "asin"],
+    description: "Lechon prep 2."
+  },
+  {
+    id: "cooked_lechon",
+    name: "Lechon (Finished)",
+    category: "custom_food",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/Piglin Head_1.21.4.png",
+    recipeImage: "/recipes/cooked_lechon.png",
+    inputs: ["lechon_2"],
+    description: "Fully cooked Lechon."
+  },
+  {
+    id: "lechon_kawali_1",
+    name: "Lechon Kawali Prep",
+    category: "custom_food",
+    tier: 2,
+    outputImage: "/recipes/output_recipe/rabbit_stew.png",
+    recipeImage: "/recipes/lechon_kawali1.png",
+    inputs: ["mantika", "paminta", "laurel", "asin", "bawang"],
+    description: "Lechon Kawali prep 1."
+  },
+  {
+    id: "cooked_lechon_kawali",
+    name: "Lechon Kawali (Finished)",
+    category: "custom_food",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/rabbit_stew.png",
+    recipeImage: "/recipes/cooked_lechon_kawali.png",
+    inputs: ["lechon_kawali_1"],
+    description: "Cooked Lechon Kawali."
+  },
+  {
+    id: "uncooked_pinangat",
+    name: "Uncooked Pinangat",
+    category: "custom_food",
+    tier: 2,
+    outputImage: "/recipes/output_recipe/rabbit_stew.png",
+    recipeImage: "/recipes/uncooked_pinangat.png",
+    inputs: ["luya", "siling_green", "sili"],
+    description: "Uncooked Pinangat."
+  },
+  {
+    id: "cooked_pinangat",
+    name: "Cooked Pinangat",
+    category: "custom_food",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/rabbit_stew.png",
+    recipeImage: "/recipes/cooked_pinangat.png",
+    inputs: ["uncooked_pinangat"],
+    description: "Cooked Pinangat."
+  },
+  {
+    id: "tocino_1",
+    name: "Marinated Pork",
+    category: "custom_food",
+    tier: 2,
+    outputImage: "/recipes/output_recipe/Cooked Porkchop_1.14.4.png",
+    recipeImage: "/recipes/tocino1.png",
+    inputs: ["bawang", "soy_sauce", "asin"],
+    description: "Tocino prep 1."
+  },
+  {
+    id: "cooked_tocino",
+    name: "Tocino (Finished)",
+    category: "custom_food",
+    tier: 3,
+    outputImage: "/recipes/output_recipe/Steak_1.14.4.png",
+    recipeImage: "/recipes/cooked_tocino.png",
+    inputs: ["tocino_1"],
+    description: "Cooked Tocino."
+  },
+  {
+    id: "cringkle",
+    name: "Cringkle",
+    category: "custom_food",
+    tier: 1,
+    outputImage: "/recipes/output_recipe/Cow Spawn Egg_1.21.5.png",
+    recipeImage: "/recipes/cringkle.png",
+    inputs: [],
+    description: "Cringkle ingredient."
+  },
+  {
+    id: "pandesal",
+    name: "Pandesal",
+    category: "custom_food",
+    tier: 1,
+    outputImage: "/recipes/output_recipe/Bread_1.14.4.png",
+    recipeImage: "/recipes/pandesal.png",
+    inputs: [],
+    description: "Pandesal."
+  },
+  {
+    id: "siling_green",
+    name: "Siling Green",
+    category: "custom_food",
+    tier: 1,
+    outputImage: "/recipes/output_recipe/Sea Pickle_1.13.2.png",
+    recipeImage: "/recipes/siling_green.png",
+    inputs: [],
+    description: "Siling Green."
+  },
+  {
+    id: "tanglad",
+    name: "Tanglad",
+    category: "custom_food",
+    tier: 1,
+    outputImage: "/recipes/output_recipe/Kelp_1.13.2.png",
+    recipeImage: "/recipes/tanglad.png",
+    inputs: [],
+    description: "Tanglad (Lemongrass)."
   }
 ];
