@@ -836,7 +836,7 @@ export const recipesData = [
     category: "custom_food",
     tier: 3,
     outputImage: "/recipes/output_recipe/Piglin Head_1.21.4.png",
-    recipeImage: "/recipes/cooked_lechon.png",
+    recipeImage: "/recipes/campfire_lechon.png",
     inputs: ["lechon_2"],
     description: "Fully cooked Lechon."
   },
@@ -925,7 +925,7 @@ export const recipesData = [
     name: "Siling Green",
     category: "custom_food",
     tier: 1,
-    outputImage: "/recipes/output_recipe/Sea Pickle_1.13.2.png",
+    outputImage: "/recipes/output_recipe/Mangrove Propagule_1.19.4.png",
     recipeImage: "/recipes/siling_green.png",
     inputs: [],
     description: "Siling Green."
