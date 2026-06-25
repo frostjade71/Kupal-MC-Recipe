@@ -120,6 +120,22 @@ const getRootAncestor = (itemId, chainIndices = {}) => {
   return currentId;
 };
 
+const getAllUniqueRoots = (itemId) => {
+  const roots = new Set();
+  const traverse = (currentId, visited) => {
+    if (visited.has(currentId)) return;
+    visited.add(currentId);
+    const parents = recipesData.filter(r => r.inputs.includes(currentId));
+    if (parents.length === 0) {
+      roots.add(currentId);
+    } else {
+      parents.forEach(p => traverse(p.id, new Set(visited)));
+    }
+  };
+  traverse(itemId, new Set());
+  return Array.from(roots);
+};
+
 const getIngredientTree = (itemId, depth = 0, maxDepth = 10) => {
   const item = recipesData.find(r => r.id === itemId);
   if (!item || depth > maxDepth) return null;
@@ -296,7 +312,8 @@ export default function App() {
     else if (isInChain) cardClass += " highlighted";
 
     const parents = recipesData.filter(r => r.inputs.includes(node.id));
-    const hasMultipleChains = parents.length > 1;
+    const uniqueRoots = getAllUniqueRoots(node.id);
+    const hasMultipleChains = parents.length > 1 && uniqueRoots.length > 1;
 
     return (
       <div className={`tree-branch ${isInChain ? 'active-chain' : ''}`} key={node.id}>
